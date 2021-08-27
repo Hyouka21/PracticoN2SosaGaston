@@ -38,16 +38,11 @@ public class MensajeTexto extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
+
 
                     leer();
 
-                    handler.postDelayed(this, TIEMPO);
-                }
 
-            }, TIEMPO);
 
     }
     @Nullable
