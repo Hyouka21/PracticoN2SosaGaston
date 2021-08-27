@@ -4,20 +4,17 @@ import android.app.Service;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 public class MensajeTexto extends Service {
-
+    private final int TIEMPO = 9000;
     public MensajeTexto(){
-
-
     }
-    @Override
-    public void onCreate() {
-        super.onCreate();
+    public void leer(){
         int contador=0;
         Cursor cursor = getContentResolver().query(Uri.parse("content://sms/inbox"), null, null, null, null);
         if (cursor.moveToFirst()) {
@@ -37,6 +34,20 @@ public class MensajeTexto extends Service {
         } else {
             Log.d("mensaje","No hay mensajes");
         }
+    }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+
+                    leer();
+
+                    handler.postDelayed(this, TIEMPO);
+                }
+
+            }, TIEMPO);
 
     }
     @Nullable
