@@ -16,9 +16,7 @@ public class MensajeTexto extends Service {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-
+    public int onStartCommand(Intent intent, int flags, int startId) {
         Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -57,6 +55,12 @@ public class MensajeTexto extends Service {
         });
         th.start();
 
+        return START_STICKY;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
 
     }
